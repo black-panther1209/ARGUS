@@ -3,8 +3,8 @@ Project Argus: Adaptive Resilience & Procurement Orchestrator
 Track: National Infrastructure & Energy Resilience Modeling
 Team: ALT ELITE
 
-Team Leader: Shristi Pandey / Antara Sharma
-Team Members: You (Frontend & Product Integration), Antara Sharma & Lakshmi Pandey (Simulation & Optimization), Shristi Pandey & Niharika Singh (Data Pipeline & AI Engineering)
+Team Leader: Shristi Pandey 
+Team Members: Antara Sharma & Lakshmi Pandey (Simulation & Optimization), Shristi Pandey & Niharika Singh (Data Pipeline & AI Engineering)
 📌 Executive Summary
 Project Argus is an offline-first, mathematically-driven Energy Resilience Decision-Support System (DSS) designed to protect India's crude oil supply chain from sudden maritime chokepoint closures and geopolitical disruptions.
 
@@ -13,11 +13,11 @@ Traditional crisis response is reactive, relying on manual spreadsheet recalcula
 🔴 The Problem Space: India's Vulnerabilities
 India's economic growth is inextricably linked to its energy security, but the current grid is exposed to acute strategic risks:
 
-High Import Dependency: India imports over 85% of its daily crude oil requirements, leaving it highly vulnerable to supplier sanctions, regional conflicts, or transit lane blockades [9, 103].
-Maritime Choke Point Exposure: 14.2% of India's total daily crude oil supply passes directly through the volatile Strait of Hormuz [9, 105]. Active regional events in the Red Sea and Bab-el-Mandeb further constrain shipping routes [60, 77].
-Finite Strategic Buffers: India's Strategic Petroleum Reserves (SPR) provide a national runway threshold of only 23 days under full import cutoff conditions [9, 105].
-Static Emergency Response: Current crisis response infrastructure relies on static Excel modeling [77]. Recalculating allocations and route diversions across refineries during disruptions takes days, resulting in delayed decisions and unnecessary drawdown of strategic reserves [9, 77].
-API Fragility & Black Boxes: Conceptual dashboards fail during real-world crises if third-party tracking APIs crash or go offline [78, 91]. Furthermore, optimization software outputs raw, uninterpretable variables (e.g., allocation_x = +15000) without explaining the strategic why [78, 117].
+High Import Dependency: India imports over 85% of its daily crude oil requirements, leaving it highly vulnerable to supplier sanctions, regional conflicts, or transit lane blockades.
+Maritime Choke Point Exposure: 14.2% of India's total daily crude oil supply passes directly through the volatile Strait of Hormuz. Active regional events in the Red Sea and Bab-el-Mandeb further constrain shipping routes.
+Finite Strategic Buffers: India's Strategic Petroleum Reserves (SPR) provide a national runway threshold of only 23 days under full import cutoff conditions.
+Static Emergency Response: Current crisis response infrastructure relies on static Excel modeling. Recalculating allocations and route diversions across refineries during disruptions takes days, resulting in delayed decisions and unnecessary drawdown of strategic reserves.
+API Fragility & Black Boxes: Conceptual dashboards fail during real-world crises if third-party tracking APIs crash or go offline. Furthermore, optimization software outputs raw, uninterpretable variables (e.g., allocation_x = +15000) without explaining the strategic why.
 ⚙️ The Core Decision-Support Loop
 Project Argus automates crisis-response orchestration through a continuous 5-step pipeline [59]:
 
@@ -30,13 +30,13 @@ Project Argus automates crisis-response orchestration through a continuous 5-ste
   │  5. RECOMMEND   │ <─── │ 4. OPTIMIZATION │ <─────────────┘
   │  GenAI Explanation│      │ SciPy LP Solver │
   └─────────────────┘      └─────────────────┘
-Risk / Event Ingestion: Monitors news channels, text briefs, and geopolitical feeds for regional escalations [17, 83].
-Disruption Translation: Converts raw text data into physical bottleneck risk coefficients on shipping channels (e.g., Strait of Hormuz 75% blockade) [17, 83].
-Network Impact Simulation: Calculates immediate expected crude deficits (e.g., 14.2% supply drop), identifies affected inland refinery units, and projects strategic reserve depletion runways [17, 84].
-Deterministic Optimization: Formulates alternative imports as a cost-minimization mathematical model, rerouting cargo via safe corridors (e.g., Cape of Good Hope) [17, 84].
-Explainable AI Strategic Briefing: Leverages an LLM solely to convert the raw numeric solver allocations into clear, plain-English tactical rationales explaining why specific supplier decisions were made [17, 84].
+Risk / Event Ingestion: Monitors news channels, text briefs, and geopolitical feeds for regional escalations.
+Disruption Translation: Converts raw text data into physical bottleneck risk coefficients on shipping channels (e.g., Strait of Hormuz 75% blockade).
+Network Impact Simulation: Calculates immediate expected crude deficits (e.g., 14.2% supply drop), identifies affected inland refinery units, and projects strategic reserve depletion runways.
+Deterministic Optimization: Formulates alternative imports as a cost-minimization mathematical model, rerouting cargo via safe corridors (e.g., Cape of Good Hope) .
+Explainable AI Strategic Briefing: Leverages an LLM solely to convert the raw numeric solver allocations into clear, plain-English tactical rationales explaining why specific supplier decisions were made.
 📊 Mathematical Optimization Engine
-Unlike standard hackathon entries that use LLMs to "hallucinate" math calculations, Project Argus ensures mathematical truth by running a deterministic Linear Program using Python’s scipy.optimize.linprog [92].
+Unlike standard hackathon entries that use LLMs to "hallucinate" math calculations, Project Argus ensures mathematical truth by running a deterministic Linear Program using Python’s scipy.optimize.linprog.
 
 1. Objective Function
 The engine minimizes the total strategic cost ($Z$) associated with buying, transporting, and suffering deficits:
@@ -45,11 +45,11 @@ $$\min Z = \sum_{s,r,k} \left( P_s \cdot V_{s,r,k} ight) + \sum_{s,r,k} \left( T
 
 Where:
 
-$P_s$: Purchase price per barrel from supplier $s$ [115].
-$T_k$: Shipping transit fee for route/corridor $k$ [115].
-$R_k$: Configured geopolitical risk-penalty coefficient of transit corridor $k$ [115].
-$ ext{Pen}_{ ext{gap}}$: High cost penalty assigned to any unmet national inland refinery demand [115].
-$V_{s,r,k}$: Volume of crude allocated from supplier $s$ to refinery $r$ via corridor $k$ [115].
+$P_s$: Purchase price per barrel from supplier $s$ .
+$T_k$: Shipping transit fee for route/corridor $k$ .
+$R_k$: Configured geopolitical risk-penalty coefficient of transit corridor $k$.
+$ ext{Pen}_{ ext{gap}}$: High cost penalty assigned to any unmet national inland refinery demand.
+$V_{s,r,k}$: Volume of crude allocated from supplier $s$ to refinery $r$ via corridor $k$ .
 2. Constraints Setup
 Supplier Capacity: The total volume sourced from any exporter cannot exceed their maximum daily capacity [115]: $$\sum_{r,k} V_{s,r,k} \le ext{Capacity}_s$$
 Route Availability: Rerouting forces allocations to zero if a corridor exceeds configured risk thresholds [116]: $$V_{s,r,k} = 0 \quad orall k ext{ where } ext{Risk}_k > ext{Threshold}$$
